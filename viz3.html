@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>World Cup Host Performance Analysis</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .radar-chart {
+            margin: 20px;
+        }
+
+        .legend {
+            font-size: 12px;
+        }
+
+        path {
+            pointer-events: none;
+            /* Ensures better rendering */
+        }
+
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="countrySelect">Select Host Country:</label>
+        <select id="countrySelect">
+            <option value="Brazil">Brazil</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+        </select>
+        <label for="yearSelect">Select Hosting Year:</label>
+        <select id="yearSelect">
+            <option value="2006">2006</option>
+            <option value="2010">2010</option>
+            <option value="2014">2014</option>
+            <option value="2018">2018</option>
+            <option value="2022">2022</option>
+        </select>
+    </div>
+    <div id="chart"></div>
+    <div id="tooltip" class="tooltip"></div>
+
+    <script>
+        // Synthetic data
+        const data = {
+            Brazil: {
+                hostYear: 2014,
+                metrics: [
+                    {
+                        year: 2006,
+                        stageReached: 8,
+                        goalsScored: 7,
+                        ranking: 8,
+                        winPercentage: 60,
+                        cleanSheets: 2
+                    },
+                    {
+                        year: 2010,
+                        stageReached: 6,
+                        goalsScored: 9,
+                        ranking: 4,
+                        winPercentage: 75,
+                        cleanSheets: 3
+                    },
+                    {
+                        year: 2014,
+                        stageReached: 4,
+                        goalsScored: 11,
+                        ranking: 3,
+                        winPercentage: 80,
+                        cleanSheets: 4
+                    },
+                    {
+                        year: 2018,
+                        stageReached: 4,     // Slight improvement after hosting
+                        goalsScored: 12,
+                        ranking: 2,
+                        winPercentage: 81,
+                        cleanSheets: 4
+                    },
+                    {
+                        year: 2022,
+                        stageReached: 3,     // Continues improvement trend
+                        goalsScored: 13,
+                        ranking: 2,
+                        winPercentage: 85,
+                        cleanSheets: 4
+                    }
+                ]
+            }
+        };
+
+        const width = 900;
+        const height = 600;
+        const margin = 50;
+        const radius = Math.min(width, height) / 2 - margin;
+
+        function createRadarChart(country) {
+            d3.select("#chart").selectAll("*").remove();
+            d3.select("#chart").html("");
+
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width / 2},${height / 2})`);
+
+            const features = ["Stage Reached", "Goals Scored", "Ranking", "Win Percentage", "Clean Sheets"];
+            const angles = features.map((f, i) => i * 2 * Math.PI / features.length);
+
+            // Move scales definition before it's used
+            const scales = {
+                "Stage Reached": d3.scaleLinear().domain([0, 8]).range([0, radius]),
+                "Goals Scored": d3.scaleLinear().domain([0, 15]).range([0, radius]),
+                "Ranking": d3.scaleLinear().domain([0, 10]).range([0, radius]),
+                "Win Percentage": d3.scaleLinear().domain([0, 100]).range([0, radius]),
+                "Clean Sheets": d3.scaleLinear().domain([0, 5]).range([0, radius])
+            };
+
+            // Draw circular guidelines
+            const levels = 5;
+            for (let level = 1; level <= levels; level++) {
+                const levelRadius = (radius * level) / levels;
+
+                // Draw circular level indicators
+                svg.append("circle")
+                    .attr("cx", 0)
+                    .attr("cy", 0)
+                    .attr("r", levelRadius)
+                    .attr("stroke", "gray")
+                    .attr("fill", "none")
+                    .attr("stroke-width", 0.5)
+                    .style("opacity", 0.3);
+
+                // Add level values for each axis
+                features.forEach((f, i) => {
+                    const scale = scales[f];
+                    const value = scale.invert(levelRadius);
+                    svg.append("text")
+                        .attr("x", (levelRadius - 10) * Math.cos(angles[i] - Math.PI / 2))
+                        .attr("y", (levelRadius - 10) * Math.sin(angles[i] - Math.PI / 2))
+                        .attr("text-anchor", "middle")
+                        .attr("dominant-baseline", "middle")
+                        .attr("font-size", "8px")
+                        .text(Math.round(value));
+                });
+            }
+
+            // Draw axis lines
+            features.forEach((f, i) => {
+                svg.append("line")
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", radius * Math.cos(angles[i] - Math.PI / 2))
+                    .attr("y2", radius * Math.sin(angles[i] - Math.PI / 2))
+                    .attr("stroke", "gray")
+                    .attr("stroke-width", 1);
+
+                svg.append("text")
+                    .attr("x", (radius + 20) * Math.cos(angles[i] - Math.PI / 2))
+                    .attr("y", (radius + 20) * Math.sin(angles[i] - Math.PI / 2))
+                    .text(f)
+                    .attr("text-anchor", "middle");
+            });
+
+            // Color scale
+            const colorScale = d3.scaleOrdinal()
+                .domain(data[country].metrics.map(d => d.year))
+                .range(['#247ba0', '#f25f5c', '#50514f', '#ffe066', '#f4a259', '#70c1b3', '#0ead69']);
+
+            // Create the radar paths
+            data[country].metrics.forEach(yearData => {
+                const points = features.map((f, i) => {
+                    let value;
+                    switch (f) {
+                        case "Stage Reached":
+                            value = yearData.stageReached;
+                            break;
+                        case "Goals Scored":
+                            value = yearData.goalsScored;
+                            break;
+                        case "Ranking":
+                            value = yearData.ranking;
+                            break;
+                        case "Win Percentage":
+                            value = yearData.winPercentage;
+                            break;
+                        case "Clean Sheets":
+                            value = yearData.cleanSheets;
+                            break;
+                    }
+                    const scale = scales[f];
+                    return {
+                        x: scale(value) * Math.cos(angles[i] - Math.PI / 2),
+                        y: scale(value) * Math.sin(angles[i] - Math.PI / 2)
+                    };
+                });
+
+                const lineGenerator = d3.line()
+                    .x(d => d.x)
+                    .y(d => d.y)
+                    .curve(d3.curveLinearClosed);
+
+                const path = svg.append("path")
+                    .datum(points)
+                    .attr("d", lineGenerator)
+                    .attr("stroke", colorScale(yearData.year))
+                    .attr("fill", "none")  // Changed from colorScale to none
+                    .attr("stroke-width", 2)
+                    .style("pointer-events", "all");
+
+                // Add hover effects
+                path.on("mouseover", function (event) {
+                    d3.select(this)
+                        .attr("fill", colorScale(yearData.year))
+                        .attr("fill-opacity", 0.3);
+
+                    const tooltip = d3.select("#tooltip");
+                    tooltip.style("display", "block")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 10) + "px")
+                        .html(`
+                            <strong>Year: ${yearData.year}</strong><br/>
+                            Stage Reached: ${yearData.stageReached}<br/>
+                            Goals Scored: ${yearData.goalsScored}<br/>
+                            Ranking: ${yearData.ranking}<br/>
+                            Win Percentage: ${yearData.winPercentage}%<br/>
+                            Clean Sheets: ${yearData.cleanSheets}
+                        `);
+                })
+                    .on("mouseout", function () {
+                        d3.select(this)
+                            .attr("fill", "none");  // Remove fill on mouseout
+                        d3.select("#tooltip").style("display", "none");
+                    });
+            });
+
+            const legend = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${radius + 80}, -${radius / 2})`);
+
+            const legendItems = legend.selectAll(".legend-item")
+                .data(data[country].metrics)
+                .enter()
+                .append("g")
+                .attr("class", "legend-item")
+                .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+            legendItems.append("rect")
+                .attr("width", 12)
+                .attr("height", 12)
+                .attr("fill", d => colorScale(d.year));
+
+            legendItems.append("text")
+                .attr("x", 20)
+                .attr("y", 10)
+                .text(d => d.year + (d.year === data[country].hostYear ? " (Host)" : ""));
+
+        }
+
+        // Initial render
+        createRadarChart("Brazil");
+
+        // Update on country selection
+        d3.select("#countrySelect").on("change", function () {
+            createRadarChart(this.value);
+        });
+    </script>
+</body>
+
+</html>
