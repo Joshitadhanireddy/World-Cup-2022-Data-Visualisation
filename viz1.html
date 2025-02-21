@@ -15,8 +15,9 @@
         }
         .container {
             display: flex;
+            flex-direction: row;
             align-items: flex-start;
-            gap: 50px;
+            gap: 20px;
         }
         .calendar-container {
             text-align: center;
@@ -29,7 +30,7 @@
             margin: 0 auto;
         }
         .legend {
-            margin-top: 87px;
+            margin-top: 0;
             font-size: 12px;
             font-weight: bold;
             background: #f1f1f1;
@@ -104,7 +105,7 @@
             pointer-events: none;
         }
         .bar-chart-container {
-            margin-top: 30px;
+            margin-top: 20px;
             width: 200px;
         }
         .bar-chart-title {
@@ -118,8 +119,38 @@
             margin: 5px 0;
             text-align: right;
             padding-right: 5px;
-            color: white;
+            color: black;
             font-weight: bold;
+        }
+        .filter-container {
+            margin-top: 20px;
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+        }
+        .filter-container label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .filter-container select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+        }
+        .right-panel {
+            margin-top: 130px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
     </style>
 </head>
@@ -128,32 +159,46 @@
     <div class="container">
         <!-- Calendar Section -->
         <div class="calendar-container">
-            <h2>FIFA World Cup Calendar 2022</h2>
+            <h2>FIFA World Cup Calendar</h2>
             <h3>Nov 20 - Dec 18</h3>
             <div class="calendar" id="calendar"></div>
         </div>
 
-        <!-- Legend Section -->
-        <div class="legend">
-            <div class="legend-title">Legend</div>
-            <div class="legend-item">
-                <div class="legend-box" style="background-color: red;"></div>
-                <span>Hot (≥ 82.7°F)</span>
+        <!-- Right Panel: Legend, Bar Chart, and Filter -->
+        <div class="right-panel">
+            <!-- Legend Section -->
+            <div class="legend">
+                <div class="legend-title">Legend</div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background-color:#dc267f;"></div>
+                    <span>Hot (≥ 82.7°F)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background-color: #ffb000;"></div>
+                    <span>Moderate (75.3°F - 82.7°F)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background-color: #648fff;"></div>
+                    <span>Cold (≤ 75.3°F)</span>
+                </div>
+                <div class="note">
+                    ⚽ Bar fill represents % of total goals (normalized to 8 goals max).
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-box" style="background-color: orange;"></div>
-                <span>Moderate (75.3°F - 82.7°F)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box" style="background-color: blue;"></div>
-                <span>Cold (≤ 75.3°F)</span>
-            </div>
-            <div class="note">
-                ⚽ Bar fill represents % of total goals (normalized to 8 goals max).
-            </div>
-             <div class="bar-chart-container">
-                <div class="bar-chart-title">Avg Goals per Weather</div>
+
+            <!-- Bar Chart Section -->
+            <div class="bar-chart-container">
+                <div class="bar-chart-title"></div>
                 <div id="bar-chart"></div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-container">
+                <label for="team-filter">Filter by Team:</label>
+                <select id="team-filter">
+                    <option value="all">All Teams</option>
+                    <!-- Teams will be populated dynamically -->
+                </select>
             </div>
         </div>
     </div>
@@ -161,26 +206,52 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
+        let allMatches = []; // Store all matches for filtering
+    
         d3.csv("data/final_wc_d3.csv").then(function(matches) {
+            allMatches = matches; // Save all matches
             matches.forEach(d => d.date = new Date(d.Date));
-
-            const calendar = d3.select("#calendar");
+    
+            // Populate team filter dropdown
+            const teams = [...new Set(matches.flatMap(d => [d.Team1, d.Team2]))].sort();
+            const teamFilter = d3.select("#team-filter");
+            teamFilter.selectAll("option")
+                .data(["all", ...teams])
+                .enter().append("option")
+                .text(d => d)
+                .attr("value", d => d);
+    
+            // Initial render
+            renderVisualization(matches, "all");
+    
+            // Add event listener for team filter
+            teamFilter.on("change", function() {
+                const selectedTeam = this.value;
+                const filteredMatches = selectedTeam === "all" 
+                    ? allMatches 
+                    : allMatches.filter(d => d.Team1 === selectedTeam || d.Team2 === selectedTeam);
+                renderVisualization(filteredMatches, selectedTeam);
+            });
+        });
+    
+        function renderVisualization(matches, selectedTeam) {
+            const calendar = d3.select("#calendar").html(""); // Clear previous calendar
             const tooltip = d3.select("#tooltip");
-
+    
             const matchDays = [...new Set(matches.map(d => d.date.getTime()))].sort();
             const dayMatchMap = {};
             matchDays.forEach(day => {
                 dayMatchMap[day] = matches.filter(d => d.date.getTime() === day);
             });
-
+    
             matchDays.forEach(day => {
                 const dayMatches = dayMatchMap[day];
                 const dateObj = new Date(day);
-
+    
                 const dayContainer = calendar.append("div").attr("class", "day-container");
                 dayContainer.append("div").attr("class", "day-label").text(dateObj.getDate());
                 const dayBox = dayContainer.append("div").attr("class", "day");
-
+    
                 dayMatches.forEach(match => {
                     const totalGoals = +match.Goals_Team1 + +match.Goals_Team2;
                     const bar = dayBox.append("div")
@@ -198,46 +269,56 @@
                         .on("mouseout", function() {
                             tooltip.style("display", "none");
                         });
-
+    
                     bar.append("div")
                         .attr("class", "bar-fill")
                         .style("width", (totalGoals / 8) * 100 + "%")
-                        .style("background-color", match.Temperature >= 82.7 ? "red" : match.Temperature >= 75.3 ? "orange" : "blue");
+                        .style("background-color", match.Temperature >= 82.7 ? "#dc267f" : match.Temperature >= 75.3 ? "#ffb000" : "#648fff");
                 });
             });
-
+    
             const weatherStats = {
                 Hot: { totalGoals: 0, matches: 0 },
                 Moderate: { totalGoals: 0, matches: 0 },
                 Cold: { totalGoals: 0, matches: 0 }
             };
-
+    
             matches.forEach(match => {
                 const temp = +match.Temperature;
-                const goals = +match.Goals_Team1 + +match.Goals_Team2;
-
+                let goals = 0;
+                
+                if (selectedTeam === "all") {
+                    goals = +match.Goals_Team1 + +match.Goals_Team2;
+                } else if (match.Team1 === selectedTeam) {
+                    goals = +match.Goals_Team1;
+                } else if (match.Team2 === selectedTeam) {
+                    goals = +match.Goals_Team2;
+                }
+                
                 if (temp >= 82.7) weatherStats.Hot.totalGoals += goals, weatherStats.Hot.matches++;
                 else if (temp >= 75.3) weatherStats.Moderate.totalGoals += goals, weatherStats.Moderate.matches++;
                 else weatherStats.Cold.totalGoals += goals, weatherStats.Cold.matches++;
             });
-
-            // Calculate the maximum average goals for scaling
+    
             const maxAvgGoals = d3.max(Object.values(weatherStats), d => d.matches ? (d.totalGoals / d.matches) : 0);
-
-            // Create bars with dynamic widths
+    
+            d3.select("#bar-chart").html(""); // Clear previous bar chart
+            d3.select("#bar-chart").append("div")
+                .attr("class", "bar-chart-title")
+                .text(selectedTeam === "all" ? "Avg Total Goals in Weather" : `Avg Goals in Weather by ${selectedTeam}`);
+    
             d3.select("#bar-chart").selectAll(".bar")
                 .data(Object.entries(weatherStats).map(([type, { totalGoals, matches }]) => ({
                     type,
                     avgGoals: matches ? (totalGoals / matches).toFixed(2) : 0,
-                    color: type === "Hot" ? "red" : type === "Moderate" ? "orange" : "blue"
+                    color: type === "Hot" ? "#dc267f" : type === "Moderate" ? "#ffb000" : "#648fff"
                 })))
                 .enter().append("div")
                 .attr("class", "bar")
                 .style("background-color", d => d.color)
-                .style("width", d => `${(d.avgGoals / maxAvgGoals) * 100}%`) // Scale width based on average goals
+                .style("width", d => `${(d.avgGoals / maxAvgGoals) * 100}%`)
                 .text(d => `${d.type}: ${d.avgGoals}`);
-    });
+        }
     </script>
-
 </body>
 </html>
