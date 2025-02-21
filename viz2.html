@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Club Workload vs. World Cup Performance</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 20px;
+      color: #333;
+    }
+    h2 {
+      color: #444;
+    }
+    p {
+      max-width: 800px;
+      line-height: 1.6;
+    }
+    .controls {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .controls label {
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .controls select, .controls input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    svg {
+      background: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .axis path,
+    .axis line {
+      stroke: #333;
+    }
+    .tooltip {
+      position: absolute;
+      background: rgba(255,255,255,0.9);
+      padding: 8px;
+      border: 1px solid #ccc;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h2>How Do Player Workloads During the Club Season Affect Their World Cup Performance?</h2>
+  <p>
+    This interactive visualization compares club workload metrics (e.g., minutes played, matches played, goals scored) against World Cup performance (e.g., goals, assists) with data points color‐coded by position and sized by age. Use the controls below to select the visualization type and the metrics you want to explore.
+  </p>
+  
+  <div class="controls">
+    <label for="visType">Visualization:</label>
+    <select id="visType">
+      <option value="scatter">Scatter Plot</option>
+      <option value="grouped">Grouped Bar Chart</option>
+      <option value="parallel">Parallel Coordinates</option>
+    </select>
+    
+    <label for="xMetric">Club Metric:</label>
+    <select id="xMetric">
+      <option value="clubMinutes">Minutes Played</option>
+      <option value="clubMatches">Matches Played</option>
+      <option value="clubGoals">Goals Scored</option>
+    </select>
+    
+    <label for="yMetric">World Cup Metric:</label>
+    <select id="yMetric">
+      <option value="worldCupGoals">Goals Scored</option>
+      <option value="worldCupAssists">Assists Provided</option>
+    </select>
+    
+    <span id="positionFilters">
+      <label><input type="checkbox" value="FW" checked> FW</label>
+      <label><input type="checkbox" value="MF" checked> MF</label>
+      <label><input type="checkbox" value="DF" checked> DF</label>
+      <label><input type="checkbox" value="GK" checked> GK</label>
+    </span>
+    
+    <label><input type="checkbox" id="trendlineToggle"> Show Trendline (Scatter Only)</label>
+  </div>
+  
+  <!-- SVG containers for different visualizations -->
+  <svg id="scatterPlot" width="800" height="500" style="display: none;"></svg>
+  <svg id="comparisonChart" width="800" height="400" style="display: none;"></svg>
+  <svg id="parallelCoordinates" width="800" height="500" style="display: none;"></svg>
+  
+  <div class="tooltip" id="tooltip"></div>
+  
+  <script>
+    // Global variables and dimensions
+    let mergedData = [];
+    
+    // Color scale for player positions
+    const colorScale = d3.scaleOrdinal()
+      .domain(["FW", "MF", "DF", "GK"])
+      .range(["#e41a1c", "#377eb8", "#4daf4a", "#984ea3"]);
+    
+    // Radius scale based on Age
+    const rScale = d3.scaleLinear().domain([18, 40]).range([4, 12]);
+    
+    // Load both CSV files from the data folder (assumed reformatted with a "Goals" field for club data)
+    Promise.all([
+      d3.csv("data/clubData_reformatted.csv"),
+      d3.csv("data/worldCupData_reformatted.csv")
+    ]).then(function(files) {
+      let clubData = files[0],
+          worldCupData = files[1];
+      
+      // Create a lookup for world cup data by "Player Name"
+      const worldCupMap = {};
+      worldCupData.forEach(d => {
+        const key = (d["Player Name"] || "").trim();
+        d["Goals Scored"] = +d["Goals Scored"] || 0;
+        d["Assists Provided"] = +d["Assists Provided"] || 0;
+        if (key) { worldCupMap[key] = d; }
+      });
+      
+      // Merge clubData with worldCupData using player name.
+      mergedData = clubData.map(d => {
+        const playerName = (d.Player || "").trim();
+        const pos = (d.Pos || "").trim();
+        const wc = worldCupMap[playerName] || {};
+        return {
+          playerName: playerName,
+          clubMinutes: +d.Min,
+          clubMatches: +d.MP,
+          clubGoals: d.Goals ? +d.Goals : 0,  // Assuming a "Goals" field exists in club data
+          Age: +d.Age,
+          position: pos,
+          worldCupGoals: wc["Goals Scored"] ? +wc["Goals Scored"] : 0,
+          worldCupAssists: wc["Assists Provided"] ? +wc["Assists Provided"] : 0
+        };
+      });
+      
+      updateVisualization();
+    }).catch(function(error) {
+      console.error("Error loading data: ", error);
+    });
+    
+    // Event listeners for controls
+    d3.select("#visType").on("change", updateVisualization);
+    d3.select("#xMetric").on("change", updateVisualization);
+    d3.select("#yMetric").on("change", updateVisualization);
+    d3.selectAll("#positionFilters input[type=checkbox]").on("change", updateVisualization);
+    d3.select("#trendlineToggle").on("change", updateVisualization);
+    
+    function updateVisualization() {
+      const visType = d3.select("#visType").property("value");
+      const xVar = d3.select("#xMetric").property("value");
+      const yVar = d3.select("#yMetric").property("value");
+      
+      // Filter data based on checked positions
+      const checkedPositions = [];
+      d3.selectAll("#positionFilters input[type=checkbox]").each(function() {
+        if (d3.select(this).property("checked")) {
+          checkedPositions.push(d3.select(this).property("value"));
+        }
+      });
+      
+      let filteredData = mergedData.filter(d => checkedPositions.includes(d.position));
+      
+      // For scatter and grouped charts, if the World Cup metric is goals or assists, filter out zero values
+      if ((visType === "scatter" || visType === "grouped") && (yVar === "worldCupGoals" || yVar === "worldCupAssists")) {
+        filteredData = filteredData.filter(d => d[yVar] !== 0);
+      }
+      
+      // Show/hide appropriate SVG containers
+      d3.select("#scatterPlot").style("display", visType === "scatter" ? "block" : "none");
+      d3.select("#comparisonChart").style("display", visType === "grouped" ? "block" : "none");
+      d3.select("#parallelCoordinates").style("display", visType === "parallel" ? "block" : "none");
+      
+      // Call the corresponding update function
+      if (visType === "scatter") {
+        updateScatterPlot(filteredData, xVar, yVar);
+      } else if (visType === "grouped") {
+        updateGroupedChart(filteredData, xVar, yVar);
+      } else if (visType === "parallel") {
+        updateParallelCoordinates(filteredData);
+      }
+    }
+    
+    // Scatter Plot update function
+    function updateScatterPlot(data, xVar, yVar) {
+      const margin = { top: 50, right: 30, bottom: 50, left: 60 },
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+      
+      const svg = d3.select("#scatterPlot");
+      svg.selectAll("*").remove();
+      
+      const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+      const gTrend = g.append("g").attr("class", "trendline");
+      
+      const xScale = d3.scaleLinear()
+                       .domain(d3.extent(data, d => d[xVar])).nice()
+                       .range([0, width]);
+      const yScale = d3.scaleLinear()
+                       .domain(d3.extent(data, d => d[yVar])).nice()
+                       .range([height, 0]);
+      
+      // Draw axes
+      g.append("g")
+       .attr("transform", `translate(0,${height})`)
+       .call(d3.axisBottom(xScale));
+      g.append("g")
+       .call(d3.axisLeft(yScale));
+      
+      const tooltip = d3.select("#tooltip");
+      
+      // Draw data points
+      g.selectAll("circle")
+        .data(data, d => d.playerName)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d[xVar]))
+        .attr("cy", d => yScale(d[yVar]))
+        .attr("r", d => rScale(d.Age))
+        .attr("fill", d => colorScale(d.position))
+        .attr("opacity", 0.8)
+        .on("mouseover", (event, d) => {
+          tooltip.style("opacity", 1)
+                 .html(`<strong>${d.playerName}</strong><br/>
+                        Position: ${d.position}<br/>
+                        Age: ${d.Age}<br/>
+                        ${xVar}: ${d[xVar]}<br/>
+                        ${yVar}: ${d[yVar]}`)
+                 .style("left", (event.pageX + 10) + "px")
+                 .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip.style("left", (event.pageX + 10) + "px")
+                 .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.style("opacity", 0);
+        });
+      
+      // Draw trendline if enabled
+      if (d3.select("#trendlineToggle").property("checked") && data.length > 1) {
+        const n = data.length;
+        const sumX = d3.sum(data, d => d[xVar]);
+        const sumY = d3.sum(data, d => d[yVar]);
+        const sumXY = d3.sum(data, d => d[xVar] * d[yVar]);
+        const sumXX = d3.sum(data, d => d[xVar] * d[xVar]);
+        const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+        const intercept = (sumY - slope * sumX) / n;
+        const xExtent = d3.extent(data, d => d[xVar]);
+        const lineData = xExtent.map(x => ({ x: x, y: slope * x + intercept }));
+        
+        gTrend.append("line")
+          .attr("x1", xScale(lineData[0].x))
+          .attr("y1", yScale(lineData[0].y))
+          .attr("x2", xScale(lineData[1].x))
+          .attr("y2", yScale(lineData[1].y))
+          .attr("stroke", "black")
+          .attr("stroke-width", 2);
+      }
+    }
+    
+    // Grouped Bar Chart update function with dynamic width
+    function updateGroupedChart(data, xVar, yVar) {
+      const compMargin = { top: 50, right: 30, bottom: 100, left: 60 },
+            dynamicCompWidth = Math.max(800, data.length * 60),
+            compHeight = 400 - compMargin.top - compMargin.bottom;
+      
+      const svg = d3.select("#comparisonChart");
+      svg.attr("width", dynamicCompWidth + compMargin.left + compMargin.right);
+      svg.selectAll("*").remove();
+      
+      const compWidth = dynamicCompWidth - compMargin.left - compMargin.right;
+      const g = svg.append("g")
+                   .attr("transform", `translate(${compMargin.left},${compMargin.top})`);
+      
+      // x scale for players
+      const x0 = d3.scaleBand()
+                   .domain(data.map(d => d.playerName))
+                   .range([0, compWidth])
+                   .paddingInner(0.2);
+      
+      // x scale for groups (Club vs. World Cup)
+      const x1 = d3.scaleBand()
+                   .domain(["Club", "World Cup"])
+                   .range([0, x0.bandwidth()])
+                   .padding(0.05);
+      
+      const maxY = d3.max(data, d => Math.max(d[xVar], d[yVar]));
+      const yScaleComp = d3.scaleLinear()
+                           .domain([0, maxY])
+                           .nice()
+                           .range([compHeight, 0]);
+      
+      g.append("g")
+       .attr("transform", `translate(0, ${compHeight})`)
+       .call(d3.axisBottom(x0))
+       .selectAll("text")
+       .attr("transform", "rotate(-45)")
+       .style("text-anchor", "end");
+      g.append("g")
+       .call(d3.axisLeft(yScaleComp));
+      
+      // Prepare data in a grouped format
+      const playersData = data.map(d => ({
+        playerName: d.playerName,
+        values: [
+          { key: "Club", value: d[xVar] },
+          { key: "World Cup", value: d[yVar] }
+        ]
+      }));
+      
+      const tooltip = d3.select("#tooltip");
+      
+      const playerGroups = g.selectAll(".player-group")
+        .data(playersData)
+        .enter().append("g")
+        .attr("class", "player-group")
+        .attr("transform", d => `translate(${x0(d.playerName)}, 0)`);
+      
+      playerGroups.selectAll("rect")
+        .data(d => d.values)
+        .enter().append("rect")
+        .attr("x", d => x1(d.key))
+        .attr("y", d => yScaleComp(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => compHeight - yScaleComp(d.value))
+        .attr("fill", d => d.key === "Club" ? "#377eb8" : "#e41a1c")
+        .on("mouseover", (event, d) => {
+          tooltip.style("opacity", 1)
+                 .html(`${d.key}: ${d.value}`)
+                 .style("left", (event.pageX + 10) + "px")
+                 .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip.style("left", (event.pageX + 10) + "px")
+                 .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.style("opacity", 0);
+        });
+      
+      // Add value labels above bars
+      playerGroups.selectAll("text.label")
+        .data(d => d.values)
+        .enter().append("text")
+        .attr("class", "label")
+        .attr("x", d => x1(d.key) + x1.bandwidth() / 2)
+        .attr("y", d => yScaleComp(d.value) - 5)
+        .attr("text-anchor", "middle")
+        .text(d => d.value);
+    }
+    
+    // Parallel Coordinates update function with highlight on hover
+    function updateParallelCoordinates(data) {
+      const margin = { top: 30, right: 50, bottom: 10, left: 50 },
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+      
+      const svg = d3.select("#parallelCoordinates");
+      svg.selectAll("*").remove();
+      
+      const g = svg.append("g")
+                   .attr("transform", `translate(${margin.left},${margin.top})`);
+      
+      // Define dimensions (axes) to include in the parallel coordinates
+      const dimensions = ["clubMinutes", "clubMatches", "clubGoals", "worldCupGoals", "worldCupAssists"];
+      
+      // Create a y-scale for each dimension
+      const yScales = {};
+      dimensions.forEach(dim => {
+        yScales[dim] = d3.scaleLinear()
+          .domain(d3.extent(data, d => d[dim])).nice()
+          .range([height, 0]);
+      });
+      
+      // X scale for positioning the axes
+      const xScale = d3.scalePoint()
+                       .domain(dimensions)
+                       .range([0, width])
+                       .padding(0.5);
+      
+      // Draw each axis
+      dimensions.forEach(dim => {
+        const axisG = g.append("g")
+                       .attr("transform", `translate(${xScale(dim)},0)`);
+        axisG.call(d3.axisLeft(yScales[dim]).ticks(5));
+        axisG.append("text")
+             .attr("y", -9)
+             .attr("text-anchor", "middle")
+             .attr("fill", "black")
+             .text(dim);
+      });
+      
+      const tooltip = d3.select("#tooltip");
+      
+      // Draw a line for each player; highlight on hover by changing stroke color
+      g.selectAll(".line")
+       .data(data)
+       .enter().append("path")
+       .attr("class", "line")
+       .attr("d", d => d3.line()(dimensions.map(dim => [xScale(dim), yScales[dim](d[dim])])))
+       .attr("stroke", d => colorScale(d.position))
+       .attr("stroke-width", 1)
+       .attr("fill", "none")
+       .attr("opacity", 0.7)
+       .on("mouseover", (event, d) => {
+         d3.select(event.currentTarget)
+           .attr("stroke", "#FF8C00")
+           .attr("stroke-width", 3)
+           .attr("opacity", 1);
+         tooltip.style("opacity", 1)
+                .html(`<strong>${d.playerName}</strong><br/>Position: ${d.position}`)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 20) + "px");
+       })
+       .on("mousemove", (event) => {
+         tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 20) + "px");
+       })
+       .on("mouseout", (event, d) => {
+         d3.select(event.currentTarget)
+           .attr("stroke", colorScale(d.position))
+           .attr("stroke-width", 1)
+           .attr("opacity", 0.7);
+         tooltip.style("opacity", 0);
+       });
+    }
+  </script>
+</body>
+</html>
