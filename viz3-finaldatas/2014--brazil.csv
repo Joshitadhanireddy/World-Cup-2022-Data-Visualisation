@@ -1,0 +1,65 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+Brazil,Croatia,3,1,Group
+Mexico,Cameroon,1,0,Group
+Brazil,Mexico,0,0,Group
+Cameroon,Croatia,0,4,Group
+Cameroon,Brazil,1,4,Group
+Croatia,Mexico,1,3,Group
+Spain,Netherlands,1,5,Group
+Chile,Australia,3,1,Group
+Spain,Chile,0,2,Group
+Australia,Netherlands,2,3,Group
+Australia,Spain,0,3,Group
+Netherlands,Chile,2,0,Group
+Colombia,Greece,3,0,Group
+Côte d'Ivoire,Japan,2,1,Group
+Colombia,Côte d'Ivoire,2,1,Group
+Japan,Greece,0,0,Group
+Japan,Colombia,1,4,Group
+Greece,Côte d'Ivoire,2,1,Group
+Uruguay,Costa Rica,1,3,Group
+England,Italy,1,2,Group
+Uruguay,England,2,1,Group
+Italy,Costa Rica,0,1,Group
+Italy,Uruguay,0,1,Group
+Costa Rica,England,0,0,Group
+Switzerland,Ecuador,2,1,Group
+France,Honduras,3,0,Group
+Switzerland,France,2,5,Group
+Honduras,Ecuador,1,2,Group
+Honduras,Switzerland,0,3,Group
+Ecuador,France,0,0,Group
+Argentina,Bosnia-Herzegovina,2,1,Group
+Iran,Nigeria,0,0,Group
+Argentina,Iran,1,0,Group
+Nigeria,Bosnia-Herzegovina,1,0,Group
+Nigeria,Argentina,2,3,Group
+Bosnia-Herzegovina,Iran,3,1,Group
+Germany,Portugal,4,0,Group
+Ghana,United States,1,2,Group
+Germany,Ghana,2,2,Group
+United States,Portugal,2,2,Group
+United States,Germany,0,1,Group
+Portugal,Ghana,2,1,Group
+Belgium,Algeria,2,1,Group
+Russia,South Korea,1,1,Group
+Belgium,Russia,1,0,Group
+South Korea,Algeria,2,4,Group
+South Korea,Belgium,0,1,Group
+Algeria,Russia,1,1,Group
+Brazil,Chile,1,1,Round of 16
+Colombia,Uruguay,2,0,Round of 16
+Netherlands,Mexico,2,1,Round of 16
+Costa Rica,Greece,1,1,Round of 16
+France,Nigeria,2,0,Round of 16
+Germany,Algeria,2,1,Round of 16
+Argentina,Switzerland,1,0,Round of 16
+Belgium,United States,2,1,Round of 16
+Brazil,Colombia,2,1,Quarter-finals
+France,Germany,0,1,Quarter-finals
+Netherlands,Costa Rica,0,0,Quarter-finals
+Argentina,Belgium,1,0,Quarter-finals
+Brazil,Germany,1,7,Semi-finals
+Netherlands,Argentina,0,0,Semi-finals
+Brazil,Netherlands,0,3,Match for third place
+Germany,Argentina,1,0,Final

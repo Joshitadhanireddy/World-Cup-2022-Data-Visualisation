@@ -1,0 +1,53 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+Italy,Austria,1,0,Group
+United States,Czechoslovakia,1,5,Group
+Italy,United States,1,0,Group
+Austria,Czechoslovakia,0,1,Group
+Italy,Czechoslovakia,2,0,Group
+Austria,United States,2,1,Group
+Argentina,Cameroon,0,1,Group
+Soviet Union,Romania,0,2,Group
+Argentina,Soviet Union,2,0,Group
+Cameroon,Romania,2,1,Group
+Argentina,Romania,1,1,Group
+Cameroon,Soviet Union,0,4,Group
+Brazil,Sweden,2,1,Group
+Costa Rica,Scotland,1,0,Group
+Brazil,Costa Rica,1,0,Group
+Sweden,Scotland,1,2,Group
+Brazil,Scotland,1,0,Group
+Sweden,Costa Rica,1,2,Group
+United Arab Emirates,Colombia,0,2,Group
+West Germany,Yugoslavia,4,1,Group
+Yugoslavia,Colombia,1,0,Group
+West Germany,United Arab Emirates,5,1,Group
+West Germany,Colombia,1,1,Group
+Yugoslavia,United Arab Emirates,4,1,Group
+Belgium,South Korea,2,0,Group
+Uruguay,Spain,0,0,Group
+Belgium,Uruguay,3,1,Group
+South Korea,Spain,1,3,Group
+Belgium,Spain,1,2,Group
+South Korea,Uruguay,0,1,Group
+England,Ireland,1,1,Group
+Netherlands,Egypt,1,1,Group
+England,Netherlands,0,0,Group
+Ireland,Egypt,0,0,Group
+England,Egypt,1,0,Group
+Ireland,Netherlands,1,1,Group
+Cameroon,Colombia,2,1,Round of 16
+Czechoslovakia,Costa Rica,4,1,Round of 16
+Brazil,Argentina,0,1,Round of 16
+West Germany,Netherlands,2,1,Round of 16
+Ireland,Romania,0,0,Round of 16
+Italy,Uruguay,2,0,Round of 16
+Spain,Yugoslavia,1,2,Round of 16
+England,Belgium,1,0,Round of 16
+Yugoslavia,Argentina,0,0,Quarter-finals
+Italy,Ireland,1,0,Quarter-finals
+West Germany,Czechoslovakia,1,0,Quarter-finals
+England,Cameroon,3,2,Quarter-finals
+Italy,Argentina,1,1,Semi-finals
+West Germany,England,1,1,Semi-finals
+Italy,England,2,1,Match for third place
+West Germany,Argentina,1,0,Final

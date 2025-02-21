@@ -1,0 +1,65 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+Russia,Saudi Arabia,5,0,Group
+Egypt,Uruguay,0,1,Group
+Morocco,Iran,0,1,Group
+Portugal,Spain,3,3,Group
+France,Australia,2,1,Group
+Peru,Denmark,0,1,Group
+Argentina,Iceland,1,1,Group
+Croatia,Nigeria,2,0,Group
+Costa Rica,Serbia,0,1,Group
+Brazil,Switzerland,1,1,Group
+Germany,Mexico,0,1,Group
+Sweden,South Korea,1,0,Group
+Belgium,Panama,3,0,Group
+Tunisia,England,1,2,Group
+Poland,Senegal,1,2,Group
+Colombia,Japan,1,2,Group
+Russia,Egypt,3,1,Group
+Uruguay,Saudi Arabia,1,0,Group
+Portugal,Morocco,1,0,Group
+Iran,Spain,0,1,Group
+Denmark,Australia,1,1,Group
+France,Peru,1,0,Group
+Argentina,Croatia,0,3,Group
+Nigeria,Iceland,2,0,Group
+Brazil,Costa Rica,2,0,Group
+Serbia,Switzerland,1,2,Group
+South Korea,Mexico,1,2,Group
+Germany,Sweden,2,1,Group
+Belgium,Tunisia,5,2,Group
+England,Panama,6,1,Group
+Japan,Senegal,2,2,Group
+Poland,Colombia,0,3,Group
+Uruguay,Russia,3,0,Group
+Saudi Arabia,Egypt,2,1,Group
+Iran,Portugal,1,1,Group
+Spain,Morocco,2,2,Group
+Denmark,France,0,0,Group
+Australia,Peru,0,2,Group
+Nigeria,Argentina,1,2,Group
+Iceland,Croatia,1,2,Group
+Serbia,Brazil,0,2,Group
+Switzerland,Costa Rica,2,2,Group
+South Korea,Germany,2,0,Group
+Mexico,Sweden,0,3,Group
+England,Belgium,0,1,Group
+Panama,Tunisia,1,2,Group
+Japan,Poland,0,1,Group
+Senegal,Colombia,0,1,Group
+Uruguay,Portugal,2,1,Round of 16
+France,Argentina,4,3,Round of 16
+Spain,Russia,1,1,Round of 16
+Croatia,Denmark,1,1,Round of 16
+Brazil,Mexico,2,0,Round of 16
+Belgium,Japan,3,2,Round of 16
+Sweden,Switzerland,1,0,Round of 16
+Colombia,England,1,1,Round of 16
+Uruguay,France,0,2,Quarter-finals
+Brazil,Belgium,1,2,Quarter-finals
+Russia,Croatia,2,2,Quarter-finals
+Sweden,England,0,2,Quarter-finals
+France,Belgium,1,0,Semi-finals
+Croatia,England,2,1,Semi-finals
+Belgium,England,2,0,Match for third place
+France,Croatia,4,2,Final

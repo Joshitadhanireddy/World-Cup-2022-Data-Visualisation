@@ -1,0 +1,53 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+United States,Switzerland,1,1,Group
+Colombia,Romania,1,3,Group
+Romania,Switzerland,1,4,Group
+United States,Colombia,2,1,Group
+United States,Romania,0,1,Group
+Switzerland,Colombia,0,2,Group
+Cameroon,Sweden,2,2,Group
+Brazil,Russia,2,0,Group
+Brazil,Cameroon,3,0,Group
+Sweden,Russia,3,1,Group
+Russia,Cameroon,6,1,Group
+Brazil,Sweden,1,1,Group
+Germany,Bolivia,1,0,Group
+Spain,South Korea,2,2,Group
+Germany,Spain,1,1,Group
+South Korea,Bolivia,0,0,Group
+Bolivia,Spain,1,3,Group
+Germany,South Korea,3,2,Group
+Argentina,Greece,4,0,Group
+Nigeria,Bulgaria,3,0,Group
+Argentina,Nigeria,2,1,Group
+Greece,Bulgaria,0,4,Group
+Greece,Nigeria,0,2,Group
+Argentina,Bulgaria,0,2,Group
+Italy,Ireland,0,1,Group
+Norway,Mexico,1,0,Group
+Italy,Norway,1,0,Group
+Mexico,Ireland,2,1,Group
+Ireland,Norway,0,0,Group
+Italy,Mexico,1,1,Group
+Belgium,Morocco,1,0,Group
+Netherlands,Saudi Arabia,2,1,Group
+Belgium,Netherlands,1,0,Group
+Saudi Arabia,Morocco,2,1,Group
+Morocco,Netherlands,1,2,Group
+Belgium,Saudi Arabia,0,1,Group
+Germany,Belgium,3,2,Round of 16
+Spain,Switzerland,3,0,Round of 16
+Saudi Arabia,Sweden,1,3,Round of 16
+Romania,Argentina,3,2,Round of 16
+Netherlands,Ireland,2,0,Round of 16
+Brazil,United States,1,0,Round of 16
+Nigeria,Italy,1,2,Round of 16
+Mexico,Bulgaria,1,3,Round of 16
+Italy,Spain,2,1,Quarter-finals
+Netherlands,Brazil,2,3,Quarter-finals
+Bulgaria,Germany,2,1,Quarter-finals
+Romania,Sweden,2,2,Quarter-finals
+Bulgaria,Italy,1,2,Semi-finals
+Sweden,Brazil,0,1,Semi-finals
+Sweden,Bulgaria,4,0,Match for third place
+Brazil,Italy,0,0,Final

@@ -1,0 +1,665 @@
+{
+    "Qatar": {
+        "hostYear": 2022,
+        "metrics": [
+            {
+                "year": 2022,
+                "stageReached": 1,
+                "goalsScored": 1,
+                "ranking": 28,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            }
+        ]
+    },
+    "South Africa": {
+        "hostYear": 2010,
+        "metrics": [
+            {
+                "year": 1998,
+                "stageReached": 1,
+                "goalsScored": 3,
+                "ranking": 26,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 1,
+                "goalsScored": 5,
+                "ranking": 17,
+                "winPercentage": 33,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2010,
+                "stageReached": 1,
+                "goalsScored": 3,
+                "ranking": 17,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            }
+        ]
+    },
+    "Germany": {
+        "hostYear": 2006,
+        "metrics": [
+            {
+                "year": 1994,
+                "stageReached": 3,
+                "goalsScored": 9,
+                "ranking": 6,
+                "winPercentage": 60,
+                "cleanSheets": 1
+            },
+            {
+                "year": 1998,
+                "stageReached": 3,
+                "goalsScored": 8,
+                "ranking": 6,
+                "winPercentage": 60,
+                "cleanSheets": 2
+            },
+            {
+                "year": 2002,
+                "stageReached": 6,
+                "goalsScored": 14,
+                "ranking": 2,
+                "winPercentage": 71,
+                "cleanSheets": 5
+            },
+            {
+                "year": 2006,
+                "stageReached": 5,
+                "goalsScored": 14,
+                "ranking": 3,
+                "winPercentage": 71,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2010,
+                "stageReached": 5,
+                "goalsScored": 16,
+                "ranking": 3,
+                "winPercentage": 71,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2014,
+                "stageReached": 6,
+                "goalsScored": 18,
+                "ranking": 1,
+                "winPercentage": 86,
+                "cleanSheets": 4
+            },
+            {
+                "year": 2018,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 22,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2022,
+                "stageReached": 1,
+                "goalsScored": 6,
+                "ranking": 22,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            }
+        ]
+    },
+    "Italy": {
+        "hostYear": 1990,
+        "metrics": [
+            {
+                "year": 1986,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 11,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1990,
+                "stageReached": 5,
+                "goalsScored": 10,
+                "ranking": 3,
+                "winPercentage": 86,
+                "cleanSheets": 5
+            },
+            {
+                "year": 1994,
+                "stageReached": 6,
+                "goalsScored": 8,
+                "ranking": 2,
+                "winPercentage": 57,
+                "cleanSheets": 2
+            },
+            {
+                "year": 1998,
+                "stageReached": 3,
+                "goalsScored": 8,
+                "ranking": 5,
+                "winPercentage": 60,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2002,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 15,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2006,
+                "stageReached": 6,
+                "goalsScored": 12,
+                "ranking": 1,
+                "winPercentage": 71,
+                "cleanSheets": 5
+            },
+            {
+                "year": 2010,
+                "stageReached": 1,
+                "goalsScored": 4,
+                "ranking": 29,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2014,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 20,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            }
+        ]
+    },
+    "Mexico": {
+        "hostYear": 1986,
+        "metrics": [
+            {
+                "year": 1986,
+                "stageReached": 3,
+                "goalsScored": 6,
+                "ranking": 6,
+                "winPercentage": 60,
+                "cleanSheets": 3
+            },
+            {
+                "year": 1994,
+                "stageReached": 2,
+                "goalsScored": 4,
+                "ranking": 16,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1998,
+                "stageReached": 2,
+                "goalsScored": 8,
+                "ranking": 15,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 2,
+                "goalsScored": 4,
+                "ranking": 10,
+                "winPercentage": 50,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2006,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 15,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2010,
+                "stageReached": 2,
+                "goalsScored": 4,
+                "ranking": 11,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2014,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 9,
+                "winPercentage": 50,
+                "cleanSheets": 2
+            },
+            {
+                "year": 2018,
+                "stageReached": 2,
+                "goalsScored": 3,
+                "ranking": 9,
+                "winPercentage": 50,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2022,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 20,
+                "winPercentage": 33,
+                "cleanSheets": 1
+            }
+        ]
+    },
+    "Japan": {
+        "hostYear": 2002,
+        "metrics": [
+            {
+                "year": 1998,
+                "stageReached": 1,
+                "goalsScored": 1,
+                "ranking": 32,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 11,
+                "winPercentage": 50,
+                "cleanSheets": 2
+            },
+            {
+                "year": 2006,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 29,
+                "winPercentage": 0,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2010,
+                "stageReached": 2,
+                "goalsScored": 4,
+                "ranking": 9,
+                "winPercentage": 50,
+                "cleanSheets": 2
+            },
+            {
+                "year": 2014,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 26,
+                "winPercentage": 0,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2018,
+                "stageReached": 2,
+                "goalsScored": 6,
+                "ranking": 16,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2022,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 11,
+                "winPercentage": 50,
+                "cleanSheets": 0
+            }
+        ]
+    },
+    "South Korea": {
+        "hostYear": 2002,
+        "metrics": [
+            {
+                "year": 1986,
+                "stageReached": 1,
+                "goalsScored": 4,
+                "ranking": 19,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1990,
+                "stageReached": 1,
+                "goalsScored": 1,
+                "ranking": 23,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1994,
+                "stageReached": 1,
+                "goalsScored": 4,
+                "ranking": 22,
+                "winPercentage": 0,
+                "cleanSheets": 1
+            },
+            {
+                "year": 1998,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 29,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 5,
+                "goalsScored": 8,
+                "ranking": 4,
+                "winPercentage": 43,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2006,
+                "stageReached": 1,
+                "goalsScored": 3,
+                "ranking": 21,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2010,
+                "stageReached": 2,
+                "goalsScored": 6,
+                "ranking": 12,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2014,
+                "stageReached": 1,
+                "goalsScored": 3,
+                "ranking": 32,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2018,
+                "stageReached": 1,
+                "goalsScored": 3,
+                "ranking": 23,
+                "winPercentage": 33,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2022,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 16,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            }
+        ]
+    },
+    "Brazil": {
+        "hostYear": 2014,
+        "metrics": [
+            {
+                "year": 1986,
+                "stageReached": 3,
+                "goalsScored": 10,
+                "ranking": 5,
+                "winPercentage": 80,
+                "cleanSheets": 4
+            },
+            {
+                "year": 1990,
+                "stageReached": 2,
+                "goalsScored": 4,
+                "ranking": 9,
+                "winPercentage": 75,
+                "cleanSheets": 2
+            },
+            {
+                "year": 1994,
+                "stageReached": 6,
+                "goalsScored": 11,
+                "ranking": 1,
+                "winPercentage": 71,
+                "cleanSheets": 5
+            },
+            {
+                "year": 1998,
+                "stageReached": 6,
+                "goalsScored": 14,
+                "ranking": 2,
+                "winPercentage": 57,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2002,
+                "stageReached": 6,
+                "goalsScored": 18,
+                "ranking": 1,
+                "winPercentage": 100,
+                "cleanSheets": 4
+            },
+            {
+                "year": 2006,
+                "stageReached": 3,
+                "goalsScored": 10,
+                "ranking": 5,
+                "winPercentage": 80,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2010,
+                "stageReached": 3,
+                "goalsScored": 9,
+                "ranking": 6,
+                "winPercentage": 60,
+                "cleanSheets": 2
+            },
+            {
+                "year": 2014,
+                "stageReached": 5,
+                "goalsScored": 11,
+                "ranking": 4,
+                "winPercentage": 43,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2018,
+                "stageReached": 3,
+                "goalsScored": 8,
+                "ranking": 6,
+                "winPercentage": 60,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2022,
+                "stageReached": 3,
+                "goalsScored": 8,
+                "ranking": 7,
+                "winPercentage": 60,
+                "cleanSheets": 2
+            }
+        ]
+    },
+    "Russia": {
+        "hostYear": 2018,
+        "metrics": [
+            {
+                "year": 1994,
+                "stageReached": 1,
+                "goalsScored": 7,
+                "ranking": 18,
+                "winPercentage": 33,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 1,
+                "goalsScored": 4,
+                "ranking": 25,
+                "winPercentage": 33,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2014,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 31,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2018,
+                "stageReached": 3,
+                "goalsScored": 11,
+                "ranking": 8,
+                "winPercentage": 40,
+                "cleanSheets": 1
+            }
+        ]
+    },
+    "United States": {
+        "hostYear": 1994,
+        "metrics": [
+            {
+                "year": 1990,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 20,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1994,
+                "stageReached": 2,
+                "goalsScored": 3,
+                "ranking": 13,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 1998,
+                "stageReached": 1,
+                "goalsScored": 1,
+                "ranking": 30,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2002,
+                "stageReached": 3,
+                "goalsScored": 7,
+                "ranking": 7,
+                "winPercentage": 40,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2006,
+                "stageReached": 1,
+                "goalsScored": 2,
+                "ranking": 27,
+                "winPercentage": 0,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2010,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 14,
+                "winPercentage": 25,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2014,
+                "stageReached": 2,
+                "goalsScored": 5,
+                "ranking": 15,
+                "winPercentage": 25,
+                "cleanSheets": 0
+            },
+            {
+                "year": 2022,
+                "stageReached": 2,
+                "goalsScored": 3,
+                "ranking": 13,
+                "winPercentage": 25,
+                "cleanSheets": 2
+            }
+        ]
+    },
+    "France": {
+        "hostYear": 1998,
+        "metrics": [
+            {
+                "year": 1986,
+                "stageReached": 5,
+                "goalsScored": 12,
+                "ranking": 3,
+                "winPercentage": 57,
+                "cleanSheets": 3
+            },
+            {
+                "year": 1998,
+                "stageReached": 6,
+                "goalsScored": 15,
+                "ranking": 1,
+                "winPercentage": 86,
+                "cleanSheets": 5
+            },
+            {
+                "year": 2002,
+                "stageReached": 1,
+                "goalsScored": 0,
+                "ranking": 26,
+                "winPercentage": 0,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2006,
+                "stageReached": 6,
+                "goalsScored": 9,
+                "ranking": 2,
+                "winPercentage": 57,
+                "cleanSheets": 4
+            },
+            {
+                "year": 2010,
+                "stageReached": 1,
+                "goalsScored": 1,
+                "ranking": 25,
+                "winPercentage": 0,
+                "cleanSheets": 1
+            },
+            {
+                "year": 2014,
+                "stageReached": 3,
+                "goalsScored": 10,
+                "ranking": 7,
+                "winPercentage": 60,
+                "cleanSheets": 3
+            },
+            {
+                "year": 2018,
+                "stageReached": 6,
+                "goalsScored": 14,
+                "ranking": 1,
+                "winPercentage": 86,
+                "cleanSheets": 4
+            },
+            {
+                "year": 2022,
+                "stageReached": 6,
+                "goalsScored": 16,
+                "ranking": 1,
+                "winPercentage": 71,
+                "cleanSheets": 1
+            }
+        ]
+    }
+}

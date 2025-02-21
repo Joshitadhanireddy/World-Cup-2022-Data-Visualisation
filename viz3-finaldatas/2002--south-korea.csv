@@ -1,0 +1,65 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+France,Senegal,0,1,Group
+Uruguay,Denmark,1,2,Group
+France,Uruguay,0,0,Group
+Denmark,Senegal,1,1,Group
+Denmark,France,2,0,Group
+Senegal,Uruguay,3,3,Group
+Paraguay,South Africa,2,2,Group
+Spain,Slovenia,3,1,Group
+Spain,Paraguay,3,1,Group
+South Africa,Slovenia,1,0,Group
+South Africa,Spain,2,3,Group
+Slovenia,Paraguay,1,3,Group
+Brazil,Turkey,2,1,Group
+China,Costa Rica,0,2,Group
+Brazil,China,4,0,Group
+Costa Rica,Turkey,1,1,Group
+Costa Rica,Brazil,2,5,Group
+Turkey,China,3,0,Group
+South Korea,Poland,2,0,Group
+United States,Portugal,3,2,Group
+South Korea,United States,1,1,Group
+Portugal,Poland,4,0,Group
+Portugal,South Korea,0,1,Group
+Poland,United States,3,1,Group
+Ireland,Cameroon,1,1,Group
+Germany,Saudi Arabia,8,0,Group
+Germany,Ireland,1,1,Group
+Cameroon,Saudi Arabia,1,0,Group
+Cameroon,Germany,0,2,Group
+Saudi Arabia,Ireland,0,3,Group
+England,Sweden,1,1,Group
+Argentina,Nigeria,1,0,Group
+Sweden,Nigeria,2,1,Group
+Argentina,England,0,1,Group
+Sweden,Argentina,1,1,Group
+Nigeria,England,0,0,Group
+Croatia,Mexico,0,1,Group
+Italy,Ecuador,2,0,Group
+Italy,Croatia,1,2,Group
+Mexico,Ecuador,2,1,Group
+Mexico,Italy,1,1,Group
+Ecuador,Croatia,1,0,Group
+Japan,Belgium,2,2,Group
+Russia,Tunisia,2,0,Group
+Japan,Russia,1,0,Group
+Tunisia,Belgium,1,1,Group
+Tunisia,Japan,0,2,Group
+Belgium,Russia,3,2,Group
+Germany,Paraguay,1,0,Round of 16
+Denmark,England,0,3,Round of 16
+Sweden,Senegal,1,2,Round of 16
+Spain,Ireland,1,1,Round of 16
+Mexico,United States,0,2,Round of 16
+Brazil,Belgium,2,0,Round of 16
+Japan,Turkey,0,1,Round of 16
+South Korea,Italy,2,1,Round of 16
+England,Brazil,1,2,Quarter-finals
+Germany,United States,1,0,Quarter-finals
+Spain,South Korea,0,0,Quarter-finals
+Senegal,Turkey,0,1,Quarter-finals
+Germany,South Korea,1,0,Semi-finals
+Brazil,Turkey,1,0,Semi-finals
+South Korea,Turkey,2,3,Match for third place
+Germany,Brazil,0,2,Final

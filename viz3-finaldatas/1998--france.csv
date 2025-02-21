@@ -1,0 +1,65 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+Brazil,Scotland,2,1,Group
+Morocco,Norway,2,2,Group
+Scotland,Norway,1,1,Group
+Brazil,Morocco,3,0,Group
+Scotland,Morocco,0,3,Group
+Brazil,Norway,1,2,Group
+Cameroon,Austria,1,1,Group
+Italy,Chile,2,2,Group
+Chile,Austria,1,1,Group
+Italy,Cameroon,3,0,Group
+Italy,Austria,2,1,Group
+Chile,Cameroon,1,1,Group
+Saudi Arabia,Denmark,0,1,Group
+France,South Africa,3,0,Group
+France,Saudi Arabia,4,0,Group
+South Africa,Denmark,1,1,Group
+France,Denmark,2,1,Group
+South Africa,Saudi Arabia,2,2,Group
+Paraguay,Bulgaria,0,0,Group
+Spain,Nigeria,2,3,Group
+Nigeria,Bulgaria,1,0,Group
+Spain,Paraguay,0,0,Group
+Spain,Bulgaria,6,1,Group
+Nigeria,Paraguay,1,3,Group
+Netherlands,Belgium,0,0,Group
+South Korea,Mexico,1,3,Group
+Netherlands,South Korea,5,0,Group
+Belgium,Mexico,2,2,Group
+Belgium,South Korea,1,1,Group
+Netherlands,Mexico,2,2,Group
+Yugoslavia,Iran,1,0,Group
+Germany,United States,2,0,Group
+Germany,Yugoslavia,2,2,Group
+United States,Iran,1,2,Group
+Germany,Iran,2,0,Group
+United States,Yugoslavia,0,1,Group
+Romania,Colombia,1,0,Group
+England,Tunisia,2,0,Group
+Colombia,Tunisia,1,0,Group
+Romania,England,2,1,Group
+Romania,Tunisia,1,1,Group
+Colombia,England,0,2,Group
+Jamaica,Croatia,1,3,Group
+Argentina,Japan,1,0,Group
+Japan,Croatia,0,1,Group
+Argentina,Jamaica,5,0,Group
+Japan,Jamaica,1,2,Group
+Argentina,Croatia,1,0,Group
+Brazil,Chile,4,1,Round of 16
+Italy,Norway,1,0,Round of 16
+Nigeria,Denmark,1,4,Round of 16
+France,Paraguay,1,0,Round of 16
+Germany,Mexico,2,1,Round of 16
+Netherlands,Yugoslavia,2,1,Round of 16
+Argentina,England,2,2,Round of 16
+Romania,Croatia,0,1,Round of 16
+Italy,France,0,0,Quarter-finals
+Brazil,Denmark,3,2,Quarter-finals
+Germany,Croatia,0,3,Quarter-finals
+Netherlands,Argentina,2,1,Quarter-finals
+Brazil,Netherlands,1,1,Semi-finals
+France,Croatia,2,1,Semi-finals
+Netherlands,Croatia,1,2,Match for third place
+Brazil,France,0,3,Final

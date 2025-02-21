@@ -1,0 +1,53 @@
+Team1,Team2,Team1 Score,Team2 Score,Stage
+Bulgaria,Italy,1,1,Group
+Argentina,South Korea,3,1,Group
+Italy,Argentina,1,1,Group
+South Korea,Bulgaria,1,1,Group
+South Korea,Italy,2,3,Group
+Argentina,Bulgaria,2,0,Group
+Belgium,Mexico,1,2,Group
+Paraguay,Iraq,1,0,Group
+Mexico,Paraguay,1,1,Group
+Iraq,Belgium,1,2,Group
+Iraq,Mexico,0,1,Group
+Paraguay,Belgium,2,2,Group
+Canada,France,0,1,Group
+Soviet Union,Hungary,6,0,Group
+France,Soviet Union,1,1,Group
+Hungary,Canada,2,0,Group
+Hungary,France,0,3,Group
+Soviet Union,Canada,2,0,Group
+Spain,Brazil,0,1,Group
+Algeria,Northern Ireland,1,1,Group
+Brazil,Algeria,1,0,Group
+Northern Ireland,Spain,1,2,Group
+Northern Ireland,Brazil,0,3,Group
+Algeria,Spain,0,3,Group
+Uruguay,West Germany,1,1,Group
+Scotland,Denmark,0,1,Group
+West Germany,Scotland,2,1,Group
+Denmark,Uruguay,6,1,Group
+Denmark,West Germany,2,0,Group
+Scotland,Uruguay,0,0,Group
+Morocco,Poland,0,0,Group
+Portugal,England,1,0,Group
+England,Morocco,0,0,Group
+Poland,Portugal,1,0,Group
+Portugal,Morocco,1,3,Group
+England,Poland,3,0,Group
+Mexico,Bulgaria,2,0,Round of 16
+Soviet Union,Belgium,3,4,Round of 16
+Argentina,Uruguay,1,0,Round of 16
+Brazil,Poland,4,0,Round of 16
+Italy,France,0,2,Round of 16
+Morocco,West Germany,0,1,Round of 16
+England,Paraguay,3,0,Round of 16
+Denmark,Spain,1,5,Round of 16
+Brazil,France,1,1,Quarter-finals
+West Germany,Mexico,0,0,Quarter-finals
+Spain,Belgium,1,1,Quarter-finals
+Argentina,England,2,1,Quarter-finals
+Argentina,Belgium,2,0,Semi-finals
+France,West Germany,0,2,Semi-finals
+France,Belgium,4,2,Match for third place
+Argentina,West Germany,3,2,Final
