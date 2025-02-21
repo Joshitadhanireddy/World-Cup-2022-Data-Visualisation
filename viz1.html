@@ -9,14 +9,14 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center; /* Centers everything */
+            justify-content: center;
             align-items: flex-start;
             padding: 20px;
         }
         .container {
             display: flex;
             align-items: flex-start;
-            gap: 50px; /* Space between calendar and legend */
+            gap: 50px;
         }
         .calendar-container {
             text-align: center;
@@ -128,7 +128,7 @@
     <div class="container">
         <!-- Calendar Section -->
         <div class="calendar-container">
-            <h2>FIFA World Cup Calendar</h2>
+            <h2>FIFA World Cup Calendar 2022</h2>
             <h3>Nov 20 - Dec 18</h3>
             <div class="calendar" id="calendar"></div>
         </div>
@@ -161,29 +161,11 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
-        // Define temperature thresholds
-        const coldThreshold = 40;
-        const moderateThreshold = 75.3;
-        const hotThreshold = 82.7;
-        const maxGoals = 8;
-
-        function getTempColor(temp) {
-            temp = +temp;
-            if (temp >= hotThreshold) return "red";
-            if (temp >= moderateThreshold) return "orange";
-            return "blue";
-        }
-
-        function getFillWidth(goals) {
-            goals = +goals;
-            return Math.min((goals / maxGoals) * 100, 100) + "%";
-        }
-
         d3.csv("data/final_wc_d3.csv").then(function(matches) {
             matches.forEach(d => d.date = new Date(d.Date));
 
-            // Create calendar
             const calendar = d3.select("#calendar");
+            const tooltip = d3.select("#tooltip");
 
             const matchDays = [...new Set(matches.map(d => d.date.getTime()))].sort();
             const dayMatchMap = {};
@@ -201,52 +183,60 @@
 
                 dayMatches.forEach(match => {
                     const totalGoals = +match.Goals_Team1 + +match.Goals_Team2;
-                    dayBox.append("div")
+                    const bar = dayBox.append("div")
                         .attr("class", "match-bar")
-                        .append("div")
+                        .on("mouseover", function(event) {
+                            tooltip.style("display", "block")
+                                .style("left", (event.pageX + 10) + "px")
+                                .style("top", (event.pageY - 20) + "px")
+                                .html(`
+                                    <strong>${match.Team1} vs ${match.Team2}</strong><br>
+                                    ⏰ ${match.Time} | 🌡️ ${match.Temperature}°F <br>
+                                    ⚽ ${match.Score} | 💨 Wind: ${match.Wind} mph
+                                `);
+                        })
+                        .on("mouseout", function() {
+                            tooltip.style("display", "none");
+                        });
+
+                    bar.append("div")
                         .attr("class", "bar-fill")
-                        .style("width", getFillWidth(totalGoals))
-                        .style("background-color", getTempColor(match.Temperature));
+                        .style("width", (totalGoals / 8) * 100 + "%")
+                        .style("background-color", match.Temperature >= 82.7 ? "red" : match.Temperature >= 75.3 ? "orange" : "blue");
                 });
             });
 
-            // Calculate average goals per weather type
-            const weatherStats = { Hot: { totalGoals: 0, matches: 0 }, Moderate: { totalGoals: 0, matches: 0 }, Cold: { totalGoals: 0, matches: 0 } };
+            const weatherStats = {
+                Hot: { totalGoals: 0, matches: 0 },
+                Moderate: { totalGoals: 0, matches: 0 },
+                Cold: { totalGoals: 0, matches: 0 }
+            };
 
             matches.forEach(match => {
                 const temp = +match.Temperature;
                 const goals = +match.Goals_Team1 + +match.Goals_Team2;
 
-                if (temp >= hotThreshold) {
-                    weatherStats.Hot.totalGoals += goals;
-                    weatherStats.Hot.matches++;
-                } else if (temp >= moderateThreshold) {
-                    weatherStats.Moderate.totalGoals += goals;
-                    weatherStats.Moderate.matches++;
-                } else {
-                    weatherStats.Cold.totalGoals += goals;
-                    weatherStats.Cold.matches++;
-                }
+                if (temp >= 82.7) weatherStats.Hot.totalGoals += goals, weatherStats.Hot.matches++;
+                else if (temp >= 75.3) weatherStats.Moderate.totalGoals += goals, weatherStats.Moderate.matches++;
+                else weatherStats.Cold.totalGoals += goals, weatherStats.Cold.matches++;
             });
 
-            const avgGoals = Object.keys(weatherStats).map(type => ({
-                type,
-                avgGoals: weatherStats[type].matches ? (weatherStats[type].totalGoals / weatherStats[type].matches).toFixed(2) : 0,
-                color: type === "Hot" ? "#d9534f" : type === "Moderate" ? "#f0ad4e" : "#337ab7"
-            }));
+            // Calculate the maximum average goals for scaling
+            const maxAvgGoals = d3.max(Object.values(weatherStats), d => d.matches ? (d.totalGoals / d.matches) : 0);
 
-            const barChart = d3.select("#bar-chart");
-            barChart.selectAll(".bar")
-                .data(avgGoals)
-                .enter()
-                .append("div")
+            // Create bars with dynamic widths
+            d3.select("#bar-chart").selectAll(".bar")
+                .data(Object.entries(weatherStats).map(([type, { totalGoals, matches }]) => ({
+                    type,
+                    avgGoals: matches ? (totalGoals / matches).toFixed(2) : 0,
+                    color: type === "Hot" ? "red" : type === "Moderate" ? "orange" : "blue"
+                })))
+                .enter().append("div")
                 .attr("class", "bar")
-                .style("width", d => (d.avgGoals / 5) * 100 + "%") // Adjusted width scaling
                 .style("background-color", d => d.color)
+                .style("width", d => `${(d.avgGoals / maxAvgGoals) * 100}%`) // Scale width based on average goals
                 .text(d => `${d.type}: ${d.avgGoals}`);
-
-        });
-
+    });
     </script>
 
 </body>
