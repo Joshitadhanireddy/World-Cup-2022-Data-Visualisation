@@ -178,6 +178,9 @@
                 .domain(data[country].metrics.map(d => d.year))
                 .range(['#247ba0', '#f25f5c', '#50514f', '#ffe066', '#f4a259', '#70c1b3', '#0ead69']);
 
+            // Add this before creating the radar paths
+            const yearPoints = {};
+
             // Create the radar paths
             data[country].metrics.forEach(yearData => {
                 const points = features.map((f, i) => {
@@ -205,6 +208,9 @@
                         y: scale(value) * Math.sin(angles[i] - Math.PI / 2)
                     };
                 });
+
+                // Store points for this year
+                yearPoints[yearData.year] = points;
 
                 const lineGenerator = d3.line()
                     .x(d => d.x)
@@ -249,12 +255,36 @@
                 .attr("class", "legend")
                 .attr("transform", `translate(${radius + 80}, -${radius / 2})`);
 
+            // Then modify the legend hover events
             const legendItems = legend.selectAll(".legend-item")
                 .data(data[country].metrics)
                 .enter()
                 .append("g")
                 .attr("class", "legend-item")
-                .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+                .attr("transform", (d, i) => `translate(0, ${i * 20})`)
+                .on("mouseover", function(event, d) {
+                    // Highlight the corresponding path
+                    svg.selectAll("path")
+                        .filter(function(pathData) {
+                            return pathData === yearPoints[d.year];
+                        })
+                        .attr("fill", colorScale(d.year))
+                        .attr("fill-opacity", 0.3);
+                    
+                    // Make the rectangle in legend brighter
+                    d3.select(this).select("rect")
+                        .style("stroke", "#000")
+                        .style("stroke-width", "2px");
+                })
+                .on("mouseout", function(event, d) {
+                    // Remove highlight from path
+                    svg.selectAll("path")
+                        .attr("fill", "none");
+                    
+                    // Reset the rectangle in legend
+                    d3.select(this).select("rect")
+                        .style("stroke", "none");
+                });
 
             legendItems.append("rect")
                 .attr("width", 12)
