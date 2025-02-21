@@ -109,18 +109,24 @@
             width: 200px;
         }
         .bar-chart-title {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 5px;
             text-align: center;
         }
         .bar {
-            height: 25px;
-            margin: 5px 0;
-            text-align: right;
-            padding-right: 5px;
-            color: black;
-            font-weight: bold;
+        height: 25px;
+        margin: 5px 0;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: right;
+        padding-right: 5px;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 5px;
+        white-space: nowrap;
         }
         .filter-container {
             margin-top: 20px;
@@ -170,7 +176,7 @@
             <div class="legend">
                 <div class="legend-title">Legend</div>
                 <div class="legend-item">
-                    <div class="legend-box" style="background-color:#dc267f;"></div>
+                    <div class="legend-box" style="background-color:#e15759;"></div>
                     <span>Hot (≥ 82.7°F)</span>
                 </div>
                 <div class="legend-item">
@@ -273,7 +279,7 @@
                     bar.append("div")
                         .attr("class", "bar-fill")
                         .style("width", (totalGoals / 8) * 100 + "%")
-                        .style("background-color", match.Temperature >= 82.7 ? "#dc267f" : match.Temperature >= 75.3 ? "#ffb000" : "#648fff");
+                        .style("background-color", match.Temperature >= 82.7 ? "#e15759" : match.Temperature >= 75.3 ? "#ffb000" : "#648fff");
                 });
             });
     
@@ -311,7 +317,7 @@
                 .data(Object.entries(weatherStats).map(([type, { totalGoals, matches }]) => ({
                     type,
                     avgGoals: matches ? (totalGoals / matches).toFixed(2) : 0,
-                    color: type === "Hot" ? "#dc267f" : type === "Moderate" ? "#ffb000" : "#648fff"
+                    color: type === "Hot" ? "#e15759" : type === "Moderate" ? "#ffb000" : "#648fff"
                 })))
                 .enter().append("div")
                 .attr("class", "bar")
